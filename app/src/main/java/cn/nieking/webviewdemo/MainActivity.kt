@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
 
         initWebView()
         initWebViewEventHandler()
-        wvContent?.loadUrl("https://www.baidu.com")
+        wvContent?.loadUrl("https://www.jd.com")
     }
 
     private fun initWebView() {
@@ -86,7 +86,7 @@ class MainActivity : AppCompatActivity() {
             override fun onReceivedSslError(view: WebView?, handler: SslErrorHandler?, error: SslError?) {
                 super.onReceivedSslError(view, handler, error)
                 // 处理 https 请求
-                // 等待证书相应
+                // 等待证书响应
                 handler?.proceed()
             }
         }
@@ -150,10 +150,13 @@ class MainActivity : AppCompatActivity() {
             wvContent?.clearHistory()
             // 清除自动填充表单数据
             wvContent?.clearFormData()
-
+            // 加载空页面
             wvContent?.loadDataWithBaseURL(null, "", "text/html", "utf-8", null)
+            // 根 ViewGroup 移除 ViewGroup
             (wvContent?.parent as ViewGroup).removeView(wvContent)
+            // 销毁 WebView
             wvContent?.destroy()
+            // 置空
             wvContent = null
         }
         super.onDestroy()
